@@ -1,0 +1,45 @@
+ALL IN goto.bib NOW
+
+Dijkstra, E. W. 1968.
+Letters to the editor: go to statement considered harmful.
+Commun. ACM 11, 3 (Mar. 1968), 147-148.
+DOI= http://doi.acm.org/10.1145/362929.362947
+(this letter started the debate)
+
+Bochmann, G. V. 1973.
+Multiple exits from a loop without the GOTO.
+Commun. ACM 16, 7 (Jul. 1973), 443-444.
+DOI= http://doi.acm.org/10.1145/362280.362300
+
+Jonsson, D. 1989.
+Next: the elimination of Goto-patches?.
+SIGPLAN Not. 24, 3 (Mar. 1989), 85-92.
+DOI= http://doi.acm.org/10.1145/66083.66091
+
+Wulf, W. A. 1972.
+A case against the GOTO.
+In Proceedings of the ACM Annual Conference - Volume 2
+(Boston, Massachusetts, United States, August 01 - 01, 1972).
+R. Shields, Ed. ACM '72. ACM, New York, NY, 791-797.
+DOI= http://doi.acm.org/10.1145/800194.805861
+
+Leavenworth, B. M. 1972.
+Programming with(out) the GOTO.
+In Proceedings of the ACM Annual Conference - Volume 2
+(Boston, Massachusetts, United States, August 01 - 01, 1972).
+R. Shields, Ed. ACM '72. ACM, New York, NY, 782-786.
+DOI= http://doi.acm.org/10.1145/800194.805859
+
+Knuth, D. E. 1974.
+Structured Programming with go to Statements.
+ACM Comput. Surv. 6, 4 (Dec. 1974), 261-301.
+DOI= http://doi.acm.org/10.1145/356635.356640
+
+Erosa, A M. Hendren, L. J. 1994.
+Taming Control Flow: A Structured Approach to Eliminating Goto Statements.
+In Proceedings of the 1994 International Conference on Computer Languages.
+(Toulouse, France, May 16-19, 1994)
+
+McCabe, T. J. 1976.
+A Complexity Measure.
+IEEE Transactions on Software Engineering, Vol. SE-2, No. 4 (Dec. 1976), 308-320.

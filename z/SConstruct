@@ -1,0 +1,23 @@
+import os
+
+##########################################################################
+# Things to build
+
+#TEX files that should become PDF files (via latex)
+TEX_FILES = [
+    "zhw",
+    "z_example",
+]
+
+##########################################################################
+# Setup builders and environment
+
+env = Environment(
+    ENV      = os.environ,
+)
+
+##########################################################################
+# Add builders and dependecies to environment
+
+for base in TEX_FILES:
+    pdf = env.PDF(target = base + ".pdf", source = base + ".tex")

@@ -1,0 +1,140 @@
+\documentclass[letterpaper,11pt]{article}
+\usepackage{ltcadiz}
+
+%%side margin is 1.0in + oddside, so we're creating a 1 inch margin
+\oddsidemargin 0.0in 
+\topmargin 0.0in
+\textwidth 6.5in
+
+\usepackage{fullpage}
+
+\title{Z Example Taken from Some Homework}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+
+The Class Manager's Assistant module must provide an interface for dealing
+with students enrolling in a class.  Students enroll in a class.  The result
+of the enrollment is specified by \emph{EnrollResponse}.  At some point in
+time, a student may be tested; it is assumed that a student will pass the
+test.  When a student is tested, the Class Manager's Assistant must provide
+an appropriate \emph{TestResponse}.
+
+\vspace{1 em}
+
+Given Set [Student]
+
+    $| size: \nat$
+    \begin{zed}
+    EnrollResponse :: = success | alreadyenrolled \\
+    TestResponse ::= success | alreadytested | notenrolled \\
+    \end{zed}
+
+\section*{Abstract State Schema}
+
+For a \emph{Class} in the Class Manager's Assistant, a student must enroll in
+a class to be considered enrolled.  Once a student is enrolled, the student
+may be tested.
+
+    \begin{schema}{Class}
+    enrolled: \bbold{P} Student \\
+    tested: \bbold{P} Student
+    \where
+    tested \subseteq enrolled \\
+    \# enrolled \leq size
+    \end{schema}
+
+\section*{Initialization of Abstract State}
+
+It is initially assumed that a class is empty, and therefore has no students
+enrolled.
+
+    \begin{zed}
+    [Class' | enrolled' = 0 ]
+    \end{zed}
+
+\section*{Operation - Enroll}
+
+When a student requests to be enrolled, that student is added to the Class.
+
+    \begin{schema}{EnrollOK}
+    \Delta Class \\
+    S? : Student \\
+    R! : EnrollResponse \\
+    \where
+    S? \notin enrolled \\
+    enrolled' = enrolled \union \left\{ S? \right\} \\
+    R! = success \\
+    \end{schema}
+
+If a student has already enrolled, then that student can not enroll in the
+Class again.  Please note that this would be regardless of the student's
+test status since $tested \subseteq enrolled$.
+
+    \begin{schema}{AlreadyEnrolled}
+    \Xi Class \\
+    S? : Student \\
+    R! : EnrollResponse \\
+    \where
+    S? \in enrolled \\
+    S? = alreadyenrolled \\
+    \end{schema}
+
+Therefore, the enroll operation must be the disjunction of EnrollOK and
+AlreadyEnrolled.
+
+    \begin{zed}
+    Enroll \triangleq EnrollOK \vee AlreadyEnrolled
+    \end{zed}
+
+\section*{Operation - Test}
+
+When an enrolled student is tested, the student passes and is now part of the
+student population in the class marked as tested.
+
+    \begin{schema}{TestOK}
+    \Delta Class \\
+    S? : Student \\
+    R! : TestResponse \\
+    \where
+    S? \in enrolled \\
+    S? \notin tested \\
+    tested' = tested \union \left\{ S? \right\} \\
+    enrolled' = enrolled \\
+    R! = success \\
+    \end{schema}
+
+If a student has not enrolled, then the attempt to test the student must
+necessarily fail.
+
+    \begin{schema}{NotEnrolled}
+    \Xi Class \\
+    S? : Student \\
+    R! : TestResponse \\
+    \where
+    S? \notin enrolled \\
+    S? = notenrolled \\
+    \end{schema}
+
+In addition, a student can not be tested twice.
+
+    \begin{schema}{AlreadyTested}
+    \Xi Class \\
+    S? : Student \\
+    R! : TestResponse \\
+    \where
+    S? = tested \\
+    R! = alreadytested \\
+    \end{schema}
+
+Therefore, the test operation must be the disjunction of TestOK, NotEnrolled,
+and AlreadyTested.
+
+    \begin{zed}
+    Test \triangleq TestOK \vee NotEnrolled \vee AlreadyTested
+    \end{zed}
+
+\end{document}

@@ -1,0 +1,215 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ltcadiz}[1995/11/10 Macros for ltcadiz]
+\RequirePackage{oz}
+\RequirePackage{alltt}
+\RequirePackage{ifthen}
+
+\def\CADiZ{{\sf CADi$\num$}}
+
+% Take generic parameters from [] and put in {} for oz.
+% Also, omit bottom line from outline.
+\let\ozgendef\gendef
+\def\endozgendef{\endzed \z@makeinner \z@nopar}
+\renewenvironment{gendef}[1][]{\begin{ozgendef}{#1}}{\end{ozgendef}}
+
+% Add corners to named schemas.  Also, use double top line on generic schema.
+\def\schema#1{\zedcornerheight=0.7\baselineskip\z@inoutbox\z@topline{$\,#1\,$}\zedcornerheight=0pt}
+\def\genschema#1#2{\zedcornerheight=0.7\baselineskip\z@inoutbox\z@dbltopline{$\,#1\:[#2]\,$}\zedcornerheight=0pt}
+
+% Take generic parameters from [] and put in {} for oz.
+% Shame about the global variables \schemaname and \arg1.
+\let\ozschema\schema
+\let\endozschema\endschema
+\newenvironment{whichschema}[1][]%
+  {\def\arg1{#1}%
+   \ifthenelse{\equal{\arg1}{}}%
+    {\begin{ozschema}{\schemaname}}%
+    {\begin{genschema}{\schemaname}{#1}}}%
+  {\ifthenelse{\equal{\arg1}{}}%
+    {\end{ozschema}}%
+    {\end{genschema}}}
+\renewenvironment{schema}[1]%
+  {\def\schemaname{#1}\begin{whichschema}}{\end{whichschema}}
+
+\providecommand{\theorem}{}
+%\providecommand{\endtheorem}{}
+\renewenvironment{theorem}[1]%
+ {\ifthenelse{\equal{#1}{ }}{ }{\par\noindent #1 ==}\begin{zed}}%
+ {\end{zed}}
+%\newenvironment{tactic}{\begin{zed}}{\end{zed}}
+\newif\ifinquote
+\count255=\catcode`\"   % assume that register \count255 is not used
+                        % for anything else.
+\catcode`\"=\active
+\def"{%
+  \ifinquote%
+     ''\egroup\inquotefalse%
+  \else%
+     \inquotetrue%
+     \mbox\bgroup\def\\##1 {\ensuremath{\csname##1\endcsname}}%
+                 \catcode`\{=11\catcode`\}=11%
+                 \rmfamily\itshape``%
+  \fi%
+}
+\catcode`\"=\count255
+\newenvironment{tactic}%
+  {\providecommand{\"}{}\renewcommand{\"}{\mbox{\ttfamily\char34}}%
+   \inquotefalse\count255=\catcode`\"\catcode`\"=\active\begin{zed}}%
+  {\end{zed}\catcode`\"=\count255}
+
+%\newenvironment{tactic}%
+%{\begin{zed}\begingroup
+%\newif\ifltc@inquote                    % declare new test, new bit, and
+%                                        % boolean assignements
+%\ltc@inquotefalse                       % set bit false
+%\catcode`"=\active                      % make " a command name
+%\def"{%                                 % define it to be:
+%  \ifltc@inquote%                       % if ending a quote then
+%    ''\egroup\ltc@inquotefalse%         %       print close quotes,
+%                                        %       close group and set bit
+%                                        %       false
+%  \else%                                % else starting a quote then
+%    \ltc@inquotetrue\mbox\bgroup``%     %       set bit true, start
+%                                        %       text-mode group and
+%                                        %       print open quotes.
+%  \fi}}%
+%{\endgroup\end{zed}}
+
+\newenvironment{zsection}{\begin{zed}}{\end{zed}}
+\newenvironment{unit}{\begin{alltt}}{\end{alltt}}
+\newenvironment{expand}[1]{(#1) $\equiv$ \begin{alltt}}{\end{alltt}}
+\newenvironment{refine}[1]{(#1) $\sqsubseteq$ \begin{alltt}}{\end{alltt}}
+%\newcommand\quiet[1]{}
+%\newenvironment{quiet}{\@quiet\bgroup}{\egroup}
+\newbox\hiddentext
+\newenvironment{quiet}{\global\setbox\hiddentext=\vbox\bgroup}{\egroup}
+\newenvironment{zed*}{\begin{zed}}{\end{zed}}
+
+\newcommand{\web}[2]%
+  {$\lseq${\textrm{#2}}$\rseq$\hfill(#1)}
+\newcommand{\stmt}[4]%
+  {\ifthenelse{\equal{#2}{}}{}{$\Delta#2$}%
+  $[#3,~#4]$%
+  \ifthenelse{\equal{#1}{}}{}{\hfill(#1)}}
+
+\def\ZZ{\hbox to \textwidth
+    {{\it c} = element or injection\hfill {\it s} = schema definition}\relax
+        \hbox to \textwidth
+    {{\it g} = given set \hfill {\it t} = free type}\relax
+        \hbox to \textwidth
+    {{\it k} = knob \hfill {\it v} = variable}}
+
+\let \xor	\veebar
+\let \ldata	\lang
+\let \rdata	\rang
+\let \pipe	\zpipe
+\def \thrm	{\mathrel{\vdash?}}
+\def \listarg	{\mathrel{,,}}
+\def \varg	{\mbox{}\mathrel{\_}\mbox{}}
+\def \function	{\keyword{function}\mbox{}}
+\def \relation	{\keyword{relation}\mbox{}}
+\def \generic	{\keyword{generic}\mbox{}}
+\def \leftassoc	{\mbox{}\mathrel{leftassoc}\mbox{}}
+\def \rightassoc{\mbox{}\mathrel{rightassoc}\mbox{}}
+\def \powerone	{\power_1}
+\def \finsetone	{\finset_1}
+\def \inv	{^\sim}
+\let \plus	\tcl
+\let \star	\rtcl
+\def \negate	{\mbox{-}}
+\def \sequence  {\keyword{sequence}}
+\def \sequenceone       {\sequence_1}
+\def \isequence {\keyword{isequence}}
+\def \isequenceone      {\isequence_1}
+\def \seqone	{\seq_1}
+\def \iseq	{\keyword{iseq}}
+\def \iseqone   {\iseq_1}
+\def \dsum	{\keyword{+/}}
+\let \extract	\ires
+\def \prefix	{\keyword{prefix}}
+\def \partition	{\keyword{partition}}
+\def \bcount	{\z@rel\sharp}
+\def \subbageq	{\z@rel\sqsubseteq}
+\def \uminus	{\mathbin{\mbox{\rlap{$\cup$}\hskip 0.2em -}}}
+\def \symdiff	{\ominus}
+\def \LET	{\keyword{let}}
+\def \IF	{\keyword{if}}
+\def \THEN	{\keyword{then}}
+\def \ELSE	{\keyword{else}}
+\def \as	{\keyword{as}}
+\def \SECTION	{\keyword{section}}
+\def \arithmos	{\mathbb A}
+\def \rat	{\mathbb Q}
+\def \fraction	{\mathbb Q_+}
+\def \parents	{\keyword{parents}}
+\def \patante	{pat_{ante}}
+\def \patcons	{pat_{cons}}
+\def \patexpr	{pat_{expr}}
+\def \patgoal	{pat_{goal}}
+\def \patpred	{pat_{pred}}
+\def \parlel	{{|}{|}}
+\def \rec	{\keyword{rec}}
+\def \map	{\keyword{map}}
+\def \match	{\keyword{match}}
+\def \expr	{\keyword{expr}}
+\def \exprs	{\keyword{exprs}}
+\def \pred	{\keyword{pred}}
+\def \decl	{\keyword{decl}}
+\def \decls	{\keyword{decls}}
+\def \goal	{\keyword{goal}}
+\def \stxt	{\keyword{stxt}}
+\def \name	{\keyword{name}}
+\def \names	{\keyword{names}}
+\def \decn	{\keyword{decn}}
+\def \renms	{\keyword{renms}}
+\def \str	{\keyword{str}}
+\def \numb	{\keyword{numb}}
+\def \wexpr	{\keyword{\_expr}}
+\def \wexprs	{\keyword{\_exprs}}
+\def \wpred	{\keyword{\_pred}}
+\def \wstxt	{\keyword{\_stxt}}
+\def \wdecl	{\keyword{\_decl}}
+\def \wdecls	{\keyword{\_decls}}
+\def \wname	{\keyword{\_name}}
+\def \wnames	{\keyword{\_names}}
+\def \wtype	{\keyword{\_type}}
+\def \wrenms	{\keyword{\_renms}}
+\def \wstr	{\keyword{\_str}}
+\def \wnumb	{\keyword{\_numb}}
+\def \parsedecl	{\keyword{parse\_decl}}
+\def \parsedecls	{\keyword{parse\_decls}}
+\def \parseexpr	{\keyword{parse\_expr}}
+\def \parseexprs	{\keyword{parse\_exprs}}
+\def \parsename	{\keyword{parse\_name}}
+\def \parsepred	{\keyword{parse\_pred}}
+\def \parsestxt	{\keyword{parse\_stxt}}
+\def \antecedent	{\keyword{antecedent}}
+\def \consequent	{\keyword{consequent}}
+\def \declsafter	{\keyword{declsafter}}
+\def \declsbefore	{\keyword{declsbefore}}
+\def \typeof	{\keyword{typeof}}
+\def \type	{\keyword{type}}
+\def \declof	{\keyword{declof}}
+\def \decnof	{\keyword{decnof}}
+\def \predsin	{\keyword{predsin}}
+\def \exprsin	{\keyword{exprsin}}
+\def \stxtsin	{\keyword{stxtsin}}
+\def \declsin	{\keyword{declsin}}
+\def \parlel	{\mathrel{{|}{|}}}
+\def \strapp	{{+}{+}}
+\def \endpat	{\spot}
+\def \undecor	{\keyword{undecor}}
+\let \specstmt	\Delta
+\def \gcldo	{\mbox{\bfseries do}}
+\def \gclod	{\mbox{\bfseries od}}
+\def \gclif	{\mbox{\bfseries if}}
+\def \gclfi	{\mbox{\bfseries fi}}
+%\def \gclndc	{[]}
+\DeclareMathSymbol{\gclndc}{\mathord}{lasy}{"32}
+\def \gclarrow	{\ensuremath{\longrightarrow}}
+\def \gclop	{|\![}
+\def \gclcl	{]\!|}
+\def \gclcon	{\mbox{\bfseries con}}
+\def \gclvar	{\mbox{\bfseries var}}
+
+\endinput

@@ -1,0 +1,6 @@
+<bean id="someThing" class="demo.com.fedex.Thing" /> 
+
+<bean id="catHat" class="demo.com.fedex.CatInTheHat">
+    <property name="thingOne" ref="someThing" />
+    <property name="thingTwo" ref="someThing" />
+</bean>

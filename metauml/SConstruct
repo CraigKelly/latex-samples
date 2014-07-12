@@ -1,0 +1,32 @@
+import os
+
+##########################################################################
+# Setup builders and environment
+
+# We might be executed by the SConstuct above as a SConscript, so we
+# need to force current directory on our custom builder
+mpostBuilder = Builder(
+    action='mpost ${SOURCE.file}',
+    src_suffix='.mp',
+    chdir=1
+)
+
+env = Environment(
+    ENV      = os.environ,
+    BUILDERS = { 'mpost': mpostBuilder },
+)
+
+##########################################################################
+# Add builders and dependecies to environment
+
+mp = env.mpost(
+    target = ("example.1", "example.2"),
+    source = "example.mp"
+)
+
+pdf = env.PDF(
+    target = "metauml_test.pdf",
+    source = "metauml_test.tex"
+)
+
+Depends(pdf, mp)

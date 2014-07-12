@@ -1,0 +1,10 @@
+import os
+import os.path as pth
+import glob
+
+env = Environment(ENV=os.environ)
+
+for tex in glob.glob("*.tex"):
+    fn = pth.split(tex)[1]
+    base = pth.splitext(fn)[0]
+    env.PDF(target=base+".pdf", source=tex)

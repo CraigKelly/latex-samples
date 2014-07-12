@@ -1,0 +1,7 @@
+<bean id="mainBean" class="demo.com.fedex.devframework.BigBean">
+    <property name="neededBean" ref="otherBean" />
+</bean>
+
+<bean id="otherBean" class="demo.com.fedex.devframework.SubBean">
+    <property name="name" value="A" />
+</bean>

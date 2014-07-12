@@ -1,0 +1,33 @@
+\documentclass[letterpaper,10pt]{article}
+\usepackage{fullpage}
+
+% The following is needed in order to make the code compatible
+% with both latex/dvips and pdflatex.
+\ifx\pdftexversion\undefined
+\usepackage[dvips]{graphicx}
+\else
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+\fi
+
+\title{A Minimal Example for MetaUML}
+\author{Craig Kelly \footnote{adapted from John Hacker's original example} }
+\begin{document}
+
+\maketitle
+
+\section{Intro}
+
+This is a simple MetaUML demo taken in part from the manual and in
+part from the FAQ.  Note that this file is going to depend on mpost
+being run on example.mp.
+
+\section{Class Diagram Example}
+
+\includegraphics{example.1}
+
+\section{Use Case Example}
+
+\includegraphics{example.2}
+
+\end{document}

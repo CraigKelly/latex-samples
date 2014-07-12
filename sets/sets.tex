@@ -1,0 +1,100 @@
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{fullpage}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{braket}
+
+%We would like cardinality of a set to require one (not four) commands
+\newcommand{\card}[1]{\left\vert{#1}\right\vert}
+
+\title{Set Notation Help}
+\author{Craig Kelly}
+
+\begin{document}
+
+% Force pdflatex to properly use letter as page size (instead
+% of defaulting to A4)
+\special{papersize=8.5in,11in}
+\setlength{\pdfpageheight}{\paperheight}
+\setlength{\pdfpagewidth}{\paperwidth}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Some set notation}
+
+Let $ Z $ be the set of integer $ \geq 0 $.
+Show $ Z \times Z \times Z $ is countable by constructing the bijection
+$ f:  Z \times Z \times Z \rightarrow \mathbb{N} $
+
+I am assuming that $0 \notin \mathbb{N}$, 
+so $\mathbb{N} = (1,2,3, \cdots)$ 
+
+
+\begin{proof}
+
+First we show that there is a bijection 
+$ g: Z \times Z \rightarrow \mathbb{N} $.
+
+blah, blah, blah
+
+$ g: Z \times Z \rightarrow \mathbb{N} $
+is a bijection and therefore $Z \times Z$ is countable.
+
+We may now construct $ f:  Z \times Z \times Z \rightarrow \mathbb{N} $
+via composition:
+
+$ f(Z_{1}, Z_{2}, Z_{3}) = h(g(Z_{1}, Z_{2}), Z_{3}) $
+
+\end{proof}
+
+
+\begin{proof}
+
+$ L1 = \set{M | \text{M accepts w if w contains the substring 10} } $
+is undecidable
+
+Blah, blah, blah
+
+If M(w) accepts, then L(HWAMw) = $\set{w | \text{w contains the substring 10} }$
+
+If M(w) rejects or fails to halt, then L(HWAMw) = $\emptyset$
+
+Thus, we know
+$(M,w) \in A_{TM} \Leftrightarrow HWAMw \in L1$
+
+\end{proof}
+
+\pagebreak
+
+
+\begin{proof}
+$ L2 = \set{M | \text{M accepts an odd number of strings} } $ is undecidable
+
+$P(M)$ if $\card{L(M)}$ is odd.
+
+$x \in \set{000, 111, 101}$
+
+Blah, blah, blah
+
+If M(w) accepts, then L(HWBMw) = $\set{000, 111, 101}$.  Note that 
+$\card{L(HWBMw)} = 3$, which is odd.
+
+If M(w) rejects or fails to halt, then L(HWBMw) = $\emptyset$, so
+$\card{L(HWBMw)} = 0$
+
+Thus, we know
+$(M,w) \in A_{TM} \Leftrightarrow HWBMw \in L2$
+
+\end{proof}
+
+
+\end{document}

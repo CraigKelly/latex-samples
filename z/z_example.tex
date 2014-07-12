@@ -1,0 +1,83 @@
+\documentclass[letterpaper,11pt]{article}
+\usepackage{ltcadiz}
+
+%%side margin is 1.0in + oddside, so we're creating a 1 inch margin
+\oddsidemargin 0.0in 
+\topmargin 0.0in
+\textwidth 6.5in
+
+\usepackage{fullpage}
+
+\title{Z Examples Found on the Internet}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{Z section heading}
+
+    \begin{zsection}
+    \SECTION gearsystem \parents standard\_toolkit
+    \end{zsection}
+
+\subsection{Free types paragraph}
+
+    \begin{zed}
+    gearing ::= Single | Hub \ldata \nat \rdata
+        | Derailleurs \ldata \nat \cross \nat \rdata
+    \end{zed}
+
+\subsection{Horizontal definition paragraph}
+
+    \begin{zed}
+    Wellgeared == [ gears : gearing | gears \in \ran Derailleurs ]
+    \end{zed}
+
+\subsection{Generic axiomatic description paragraph}
+
+    \begin{gendef}[X,Y]
+    First : X \cross Y \fun X \\
+    Second : X \cross Y \fun Y
+    \where
+    \forall x : X; y : Y @ \\
+    \t1     First~(x,y) = x \land \\
+    \t1     Second~(x,y) = y
+    \end{gendef}
+
+\subsection{Schema definition paragraph}
+
+    \begin{schema}{Gear}
+    Wellgeared \\
+    ingear : \nat \cross \nat
+    \where
+    \exists r, s : \nat | gears = Derailleurs (r,s) @\\
+    \t1 First~ingear < r \land Second~ingear < s
+    \end{schema}
+
+\subsection{Generic schema definition paragraph}
+
+    \begin{schema}{Bicycle}[G]
+    gears:\power G
+    \end{schema}
+
+\subsection{Axiomatic description paragraph}
+
+    \begin{axdef}
+    numgears : gearing \fun \nat
+    \where
+    \forall g : gearing @ \\
+    \t1 (g = Single \implies numgears~g = 1) \land \\
+    \t1 (\exists x : \nat @ g = Hub~x \implies numgears~g = x) \land \\
+    \t1 (\exists r, s :\nat @ g = Derailleurs~(r, s) \implies numgears~g = r*s)
+    \end{axdef}
+
+\subsection{Conjecture paragraph}
+
+    \begin{theorem}{Lemma1}
+    \thrm numgears (Derailleurs (3,7)) = 21
+    \end{theorem}
+
+
+\end{document}

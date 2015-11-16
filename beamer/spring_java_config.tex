@@ -7,7 +7,7 @@
 \setfnsymbol{myfnsymbols}
 
 \usepackage{verbatim}
-\usepackage{beamerthemeshadow}
+\usepackage{beamerthemeCopenhagen}
 \beamertemplatenavigationsymbolsempty
 \usepackage{amsmath}
 
@@ -20,7 +20,7 @@
 \frame{\titlepage}
 
 \section{Spring Java Config}
-    
+
     \subsection{Introduction}
         \frame
         {
@@ -30,7 +30,7 @@
           \item Generally fine, but any ``dynamic'' action is limited to
                 factory beans and the like
           \end{itemize}
-          {\tiny 
+          {\tiny
             \verbatiminput{sjcxmlsample1.xml}
           }
         }
@@ -46,7 +46,7 @@
                 See Raja's presentations on Spring Annotations!
             \end{block}
         }
-        
+
         \frame
         {
           \frametitle{Java Config is an alternative}
@@ -55,11 +55,11 @@
           \item Get all the power of executing custom Java code at context startup
           \item Compatible with existing XML config and Autowiring
           \end{itemize}
-          {\tiny 
+          {\tiny
             \verbatiminput{sjcjavasample1.java}
           }
         }
-    
+
     \subsection{Details}
         \frame
         {
@@ -83,38 +83,38 @@
                 \item @Configuration classes must be non-local (may not be
                       declared within a method)
                 \item @Configuration classes must have a default/no-arg
-                      constructor and 
+                      constructor and
                 \item @Configuration classes may not use @Autowired
-                      constructor parameters. 
+                      constructor parameters.
                 \item Any nested configuration classes in a @Configuration
-                      class must be static 
+                      class must be static
             \end{itemize}
         }
-        
+
         \frame
         {
             \frametitle{Loading the Context}
             If you can load a context with XML, then there is an alternative
             for Java Config.  Take the simplest example:
-            {\tiny 
+            {\tiny
                 \verbatiminput{sjcstartxml.java}
             }
-            
+
             There is an equivalent for Java Config.  Let's assume that the
             Java class that contains our context configuration is named
             JavaAppContext.
-            {\tiny 
+            {\tiny
                 \verbatiminput{sjcstartjava.java}
             }
         }
-        
+
         \frame
         {
             \frametitle{Spring Magic for Java Config, Part 1}
             Consider this example.  There are only two instances in the context:
             the catHat bean, and the someThing bean.  The catHat bean has two
             references to the \textbf{same} instance of someThing.
-            {\tiny 
+            {\tiny
                 \verbatiminput{sjcxmlsample2.xml}
             }
         }
@@ -126,23 +126,23 @@
             to be called twice, so you might expect the catHat bean to have
             two different objects.  Luckily, the Spring annotation handles this
             so our Java code ``behaves'' like the XML context.
-            \footnote[frame]{\tiny{Yes, I realize that this is also a radical 
+            \footnote[frame]{\tiny{Yes, I realize that this is also a radical
             reinterpretation of a classic piece of literature.}}
-            
-            {\tiny 
+
+            {\tiny
                 \verbatiminput{sjcjavasample2.java}
             }
         }
-        
+
         \frame
         {
             \frametitle{Sample Project}
-            
+
             A sample project is available demostrating all of the above.  There
             is even a unit test demonstrating that an XML context and a Java
             Config context produce the same results.  The sample project will
             be available in the same directory that you found this presentation.
-            
+
             \begin{alertblock}{Build Alert}
                 It's a Maven project!
             \end{alertblock}

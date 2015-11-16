@@ -88,51 +88,131 @@
     \subsection{Overview}
         \frame {
             \frametitle{Overview}
-            TODO
+            \begin{itemize}
+                \item Free account!
+                \item Pulls from your repo automatically when you push changes
+                \item Supports different doc types
+                \item Has a nice template, and provides downloads
+            \end{itemize}
         }
     \subsection{Implementation}
         \frame {
             \frametitle{How to Implement}
-            TODO
+            \begin{itemize}
+                \item You write docs in reStructuredText or Markdown
+                \item You push the docs to your GitHub repo
+                \item RTD pull the docs, builds them, and shows them on the web
+            \end{itemize}
         }
     \subsection{Example from GLUDB}
         \frame {
             \frametitle{Working Example}
-            TODO
+            \begin{itemize}
+                \item We used Markdown - you should probably use Sphinx
+                \item See our mkdocs.yml and our docs directory
+                \item Published at http://gludb.readthedocs.org/en/latest/
+            \end{itemize}
         }
 
 \section{Travis CI}
     \subsection{Overview}
         \frame {
             \frametitle{Overview}
-            TODO
+            \begin{itemize}
+                \item Continuous Integration for free! (for open source repos on GitHub)
+                \item Pulls from your repo automatically when you push changes
+                \item Multiple environments (e.g. test both Python 2 and 3)
+                \item Supports lots of languages
+                \item Provides lots of services for testing (http://docs.travis-ci.com/user/database-setup/)
+                \item Allows for container customization if what need isn't in the box
+            \end{itemize}
         }
     \subsection{Implementation}
         \frame {
             \frametitle{How to Implement}
-            TODO
+            \begin{itemize}
+                \item You have tests to run!
+                \item You log in to travis-ci.org with your GitHub account
+                \item You set up your repository
+                \item You create a .travis.yml file
+                \item When you push to your repository your tests are run
+            \end{itemize}
         }
     \subsection{Example from GLUDB}
         \frame {
             \frametitle{Working Example}
-            TODO
+            \begin{itemize}
+                \item See our travis.yml and tests
+                \item We run tests for both Python 2.7 and 3.4
+                \item We use the Travis CI MongoDB service
+                \item We use a manual process to run backing services that we
+                      need using supervisor. See start\_ci\_services.sh
+                      (See next slide)
+            \end{itemize}
+        }
+
+        \frame {
+            \frametitle{Test Services Startup Script}
+            \begin{itemize}
+                \item Uses npm to install the dynalite server
+                \item Uses wget to download and extract the gcd test server
+                \item Uses virtualenv and pip to set up a Python 2.7 environment for supervisor and our S3 test server
+                \item We even run a Python script as a service (s3server.py) that we copied from Facebook and modified!
+                \item This is all very cool, but also check out our sleep hack :)
+            \end{itemize}
         }
 
 \section{PyPI}
     \subsection{Overview}
         \frame {
             \frametitle{Overview}
-            TODO
+            Do you want to do \texttt{pip install my-cool-package}?
+
+            \vspace{\baselineskip}
+
+            Then you need to be on PyPI (https://pypi.python.org/pypi)
+
+            \vspace{\baselineskip}
+
+            Not to be confused with the PyPy project at pypy.org
         }
     \subsection{Implementation}
         \frame {
             \frametitle{How to Implement}
-            TODO
+            \begin{itemize}
+                \item You get your account at pypi.python.org
+                \item You create a setup script for your package
+                \item You upload to PyPI
+            \end{itemize}
         }
     \subsection{Example from GLUDB}
         \frame {
             \frametitle{Working Example}
-            TODO
+            \begin{itemize}
+                \item First we need a steup script - setup.py (and setup.cfg)
+                      that includes dependencies. (IMPORTANT: your requirements.txt
+                      file will not get used)
+                \item It also helps to have a wrapper script like build.sh
+                \item You can handle uploads using twine
+                \item If you like Markdown for your README (who doesn't), you
+                      can use pandoc for conversion
+                \item Note that you probably won't need the extras
+            \end{itemize}
+        }
+
+\section{Conclusion}
+    \subsection{Conclusion}
+        \frame {
+            \frametitle{Don't Panic}
+            RTD and Travis have excellent documentation (and PyPI's isn't bad).
+
+            \vspace{\baselineskip}
+
+            They're also well-covered at StackOverflow and the usual places
+        }
+        \frame {
+            \frametitle{Thank You!}
+            Thanks for listening
         }
 
 \end{document}

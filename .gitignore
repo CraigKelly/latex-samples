@@ -15,5 +15,8 @@ Thumbs.db
 *.toc
 *.vrb
 
+*.bib
+*.run.xml
+
 metauml/example.1
 metauml/example.2

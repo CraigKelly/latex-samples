@@ -1,11 +1,15 @@
-\documentclass[letterpaper,12pt]{article}
+\documentclass[letterpaper,10pt,twocolumn]{article}
+
 \usepackage{fullpage}
-\usepackage{cite}
+%\usepackage{cite}
 \usepackage{url} %used by our custom annotated bibliography
 \usepackage{amsmath, amsthm}
 
 \usepackage{nameref} %to get nameref
 \newcommand{\fullref}[1]{section \ref{#1} (\emph{\nameref{#1}})}
+
+\usepackage[backend=bibtex,style=numeric,citestyle=numeric]{biblatex}
+\bibliography{goto}
 
 \begin{document}
 
@@ -384,6 +388,5 @@ physical CPU.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \nocite{*} %ensure entire bib is shown
-\bibliographystyle{plain-annote}
-\bibliography{goto}
+\printbibliography
 \end{document}

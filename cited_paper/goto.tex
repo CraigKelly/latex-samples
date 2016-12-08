@@ -9,7 +9,13 @@
 \newcommand{\fullref}[1]{section \ref{#1} (\emph{\nameref{#1}})}
 
 \usepackage[backend=bibtex,style=numeric,citestyle=numeric]{biblatex}
-\bibliography{goto}
+
+\addbibresource{goto.bib}
+
+% biblatex fix
+\makeatletter
+\def\blx@maxline{77}
+\makeatother
 
 \begin{document}
 
